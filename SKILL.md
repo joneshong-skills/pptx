@@ -267,6 +267,6 @@ Accumulated lessons signal when to run `/skill-optimizer` for a deeper structura
 
 - `pip install python-pptx` - text extraction and editing (Python 3.9+)
 - `pip install Pillow` - thumbnail grids
-- `npm install -g pptxgenjs` - creating from scratch
+- `npm install -g pptxgenjs` - creating from scratch (requires `NODE_PATH=$(npm root -g)` when running via `node -e`)
 - LibreOffice (`soffice`) - PDF conversion (auto-configured for sandboxed environments via `scripts/office/soffice.py`)
 - Poppler (`pdftoppm`) - PDF to images
