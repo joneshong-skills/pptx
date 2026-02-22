@@ -11,13 +11,17 @@ description: >-
   If a .pptx file needs to be opened, created, or touched, use this skill.
   Trigger phrases: "create a presentation", "make a deck", "edit slides", "read pptx",
   "建立簡報", "產生 pptx", "做 PowerPoint", "製作投影片", "寫簡報".
-version: 1.0.0
-tools: Bash, Read, Write, Edit
+version: 1.1.0
+tools: Bash, Read, Write, Edit, sandbox_execute
 argument-hint: "[input.pptx] [describe what you want to create or do]"
 license: Proprietary. LICENSE.txt has complete terms
 ---
 
 # PPTX Skill
+
+## Agent Delegation
+
+Delegate document processing to `worker` agent.
 
 ## Quick Reference
 
@@ -243,6 +247,16 @@ pdftoppm -jpeg -r 150 -f N -l N output.pdf slide-fixed
 ```
 
 ---
+
+## Sandbox Optimization
+
+This skill is **sandbox-optimized**. Batch operations run inside `sandbox_execute`:
+
+- **Text extraction**: Import `pptx` (python-pptx) in sandbox to read all slide text in one pass without a Bash subprocess
+- **Thumbnail generation**: Import `scripts/thumbnail.py` in sandbox to generate thumbnail grids for multi-file batch processing
+- **Batch QA checks**: Run content QA and placeholder detection in sandbox, looping over multiple `.pptx` files in a single call
+
+Principle: **Deterministic batch work → sandbox; reasoning/presentation → LLM.**
 
 ## Continuous Improvement
 
